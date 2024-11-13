@@ -1,25 +1,29 @@
-class UserManagement {
-  private users: User[] = [];
+export class User {
+  public name: string; // 외부접근 허용
+  private password: string; // 클래스 내부에서만 접근 가능
+  protected role: string; //상속받은 클래스까지 접근 가능
 
-  addUser(user: User) {
-    this.users.push(user);
-    console.log(`${user.name} has been added.`);
+  constructor(name: string, password: string, role: string) {
+    this.name = name;
+    this.password = password;
+    this.role = role;
+  }
+  greet() {
+    console.log(`Hello, ${this.name}`);
+  }
+  private validatePassword(password: string): boolean {
+    return this.password === password;
   }
 
-  removeUser(name: string) {
-    this.users = this.users.filter((user) => user.name !== name);
-    console.log(`${name} has been removed.`);
-  }
-
-  listUsers() {
-    console.log("User List:");
-    this.users.forEach((user) => console.log(user.name));
+  changePassword(newPassword: string) {
+    if (newPassword.length >= 6) {
+      this.password = newPassword;
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 
-const userManagement = new UserManagement();
-userManagement.addUser(new User("alice", "password123", "user"));
-userManagement.addUser(new User("Bob", "pass456", "admin"));
-userManagement.listUsers();
-userManagement.removeUser("Alice");
-userManagement.listUsers();
+const user = new User("julia", "pass123", "admin");
+user.greet();
