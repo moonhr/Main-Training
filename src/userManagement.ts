@@ -1,4 +1,5 @@
-class UserManagement {
+import { User } from "./user";
+export class UserManagement {
   private users: User[] = [];
 
   addUser(user: User) {
@@ -13,7 +14,7 @@ class UserManagement {
 
   listUsers() {
     console.log("User List:");
-    this.users.forEach((user) => console.log(user.name));
+    return this.users.map((user) => user.name);
   }
 }
 
